@@ -62,9 +62,9 @@ test('should filter output by severity', (t) => {
     ],
     advisories,
   });
-  const result = help(input);
-  t.equal(result.actions.length, 1);
-  t.equal(result.actions[0].resolves[0].id, 123);
+  const { auditResult } = help(input);
+  t.equal(auditResult.actions.length, 1);
+  t.equal(auditResult.actions[0].resolves[0].id, 123);
   t.end();
 });
 
@@ -86,9 +86,9 @@ test('should only include actions for review', (t) => {
     ],
     advisories,
   });
-  const result = help(input);
-  t.equal(result.actions.length, 1);
-  t.equal(result.actions[0].resolves[0].id, 456);
+  const { auditResult } = help(input);
+  t.equal(auditResult.actions.length, 1);
+  t.equal(auditResult.actions[0].resolves[0].id, 456);
   t.end();
 });
 
@@ -106,8 +106,27 @@ test('should move to the next severity if the highest severity has no actions fo
     ],
     advisories,
   });
-  const result = help(input);
-  t.equal(result.actions.length, 1);
-  t.equal(result.actions[0].resolves[0].id, 577);
+  const { auditResult } = help(input);
+  t.equal(auditResult.actions.length, 1);
+  t.equal(auditResult.actions[0].resolves[0].id, 577);
+  t.end();
+});
+
+test('should return a count of auto fixes', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 577 }),
+      }),
+      anAction({
+        action: 'install',
+        resolves: oneResolve({ id: 123 }),
+      }),
+    ],
+    advisories,
+  });
+  const { autoFixCount } = help(input);
+  t.equal(autoFixCount, 1);
   t.end();
 });
