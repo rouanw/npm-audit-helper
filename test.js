@@ -28,35 +28,37 @@ const advisories = {
   },
 };
 
+function anAction(overrides = {}) {
+  const defaults = {
+    action: 'review',
+    module: 'somedep',
+    resolves: [{
+      id: 123,
+      path: 'some-lib>another-lib>somedep',
+    }],
+  };
+  return Object.assign({}, defaults, overrides);
+}
+
+function oneResolve(overrides = {}) {
+  const defaults = {
+    id: 123,
+    path: 'some-lib>another-lib>avedep',
+  };
+  return [Object.assign({}, defaults, overrides)];
+}
+
 test('should filter output by severity', (t) => {
   const input = JSON.stringify({
     actions: [
-      {
+      anAction({
         action: 'review',
-        module: 'avedep',
-        resolves: [
-          {
-            id: 577,
-            path: 'some-lib>another-lib>avedep',
-            dev: false,
-            optional: false,
-            bundled: false,
-          },
-        ],
-      },
-      {
+        resolves: oneResolve({ id: 577 }),
+      }),
+      anAction({
         action: 'review',
-        module: 'baddep',
-        resolves: [
-          {
-            id: 123,
-            path: 'some-lib>another-lib>baddep',
-            dev: false,
-            optional: false,
-            bundled: false,
-          },
-        ],
-      },
+        resolves: oneResolve({ id: 123 }),
+      }),
     ],
     advisories,
   });
@@ -69,45 +71,18 @@ test('should filter output by severity', (t) => {
 test('should only include actions for review', (t) => {
   const input = JSON.stringify({
     actions: [
-      {
+      anAction({
         action: 'update',
-        module: 'avedep',
-        resolves: [
-          {
-            id: 123,
-            path: 'some-lib>another-lib>avedep',
-            dev: false,
-            optional: false,
-            bundled: false,
-          },
-        ],
-      },
-      {
+        resolves: oneResolve(),
+      }),
+      anAction({
         action: 'install',
-        module: 'anotherdep',
-        resolves: [
-          {
-            id: 999,
-            path: 'some-lib>another-lib>anotherdep',
-            dev: false,
-            optional: false,
-            bundled: false,
-          },
-        ],
-      },
-      {
+        resolves: oneResolve(),
+      }),
+      anAction({
         action: 'review',
-        module: 'baddep',
-        resolves: [
-          {
-            id: 456,
-            path: 'some-lib>another-lib>baddep',
-            dev: false,
-            optional: false,
-            bundled: false,
-          },
-        ],
-      },
+        resolves: oneResolve({ id: 456 }),
+      }),
     ],
     advisories,
   });
