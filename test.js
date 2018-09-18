@@ -73,11 +73,11 @@ test('should only include actions for review', (t) => {
     actions: [
       anAction({
         action: 'update',
-        resolves: oneResolve(),
+        resolves: oneResolve({ id: 999 }),
       }),
       anAction({
         action: 'install',
-        resolves: oneResolve(),
+        resolves: oneResolve({ id: 456 }),
       }),
       anAction({
         action: 'review',
