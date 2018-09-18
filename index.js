@@ -1,4 +1,5 @@
 const getStdin = require('get-stdin');
 const help = require('./lib/help');
+const report = require('./lib/report');
  
-getStdin().then(help).then(console.log);
+getStdin().then(help).then(report).then(console.log);
