@@ -4,7 +4,8 @@
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
   "main": "index.js",
   "scripts": {
-    "test": "node test"
+    "test": "node test",
+    "sample": "cat sample_input/example.json | node index"
   },
   "author": "",
   "license": "MIT",
