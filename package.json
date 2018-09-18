@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
   "main": "index.js",
+  "bin": {
+    "npm-audit-helper": "bin/cli.js"
+  },
   "scripts": {
     "test": "node test",
-    "sample": "cat sample_input/example.json | node index"
+    "sample": "cat sample_input/example.json | node bin/cli"
   },
   "author": "",
   "license": "MIT",
