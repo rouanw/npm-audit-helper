@@ -1,0 +1,18 @@
+{
+  "name": "npm-audit-helper",
+  "version": "1.0.0",
+  "description": "Helps you understand your npm audit findings so they're not too overwhelming",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "get-stdin": "^6.0.0",
+    "lodash": "^4.17.11"
+  },
+  "devDependencies": {
+    "tape": "^4.9.1"
+  }
+}
