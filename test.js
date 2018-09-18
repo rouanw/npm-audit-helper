@@ -91,3 +91,23 @@ test('should only include actions for review', (t) => {
   t.equal(result.actions[0].resolves[0].id, 456);
   t.end();
 });
+
+test('should move to the next severity if the highest severity has no actions for review', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 577 }),
+      }),
+      anAction({
+        action: 'install',
+        resolves: oneResolve({ id: 123 }),
+      }),
+    ],
+    advisories,
+  });
+  const result = help(input);
+  t.equal(result.actions.length, 1);
+  t.equal(result.actions[0].resolves[0].id, 577);
+  t.end();
+});
