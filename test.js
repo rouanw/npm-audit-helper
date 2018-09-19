@@ -1,5 +1,5 @@
 const test = require('tape');
-const help = require('./lib/help');
+const Help = require('./lib/help');
 
 const advisories = {
   577: {
@@ -47,6 +47,8 @@ function oneResolve(overrides = {}) {
   };
   return [Object.assign({}, defaults, overrides)];
 }
+
+const help = Help();
 
 test('should filter output by severity', (t) => {
   const input = JSON.stringify({
@@ -176,6 +178,21 @@ test('should return a non-zero exit code if some actions for review remain', (t)
   });
   const { exitCode } = help(input);
   t.equal(exitCode, 1);
+  t.end();
+});
+
+test('should return a zero exit code if requested', (t) => {
+  const helpWithZeroExit = Help({ 'exit-zero': true });
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'install',
+      }),
+    ],
+    advisories,
+  });
+  const { exitCode } = helpWithZeroExit(input);
+  t.equal(exitCode, 0);
   t.end();
 });
 
