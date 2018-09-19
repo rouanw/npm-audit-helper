@@ -154,3 +154,41 @@ test('should return the most problematic dependency', (t) => {
   t.equal(mostProblematicDependency.count, 2);
   t.end();
 });
+
+test('should return a zero exit code if no actions remain', (t) => {
+  const input = JSON.stringify({
+    actions: [],
+    advisories,
+  });
+  const { exitCode } = help(input);
+  t.equal(exitCode, 0);
+  t.end();
+});
+
+test('should return a non-zero exit code if some actions for review remain', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+      }),
+    ],
+    advisories,
+  });
+  const { exitCode } = help(input);
+  t.equal(exitCode, 1);
+  t.end();
+});
+
+test('should return a non-zero exit code if some non-review actions remain', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'install',
+      }),
+    ],
+    advisories,
+  });
+  const { exitCode } = help(input);
+  t.equal(exitCode, 1);
+  t.end();
+});
