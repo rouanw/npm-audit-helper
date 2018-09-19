@@ -130,3 +130,27 @@ test('should return a count of auto fixes', (t) => {
   t.equal(autoFixCount, 1);
   t.end();
 });
+
+test('should return the most problematic dependency', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 577, path: 'thislib>alib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 456, path: 'thislib>blib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 999, path: 'clib>vulnlib' }),
+      }),
+    ],
+    advisories,
+  });
+  const { mostProblematicDependency } = help(input);
+  t.equal(mostProblematicDependency.name, 'thislib');
+  t.equal(mostProblematicDependency.count, 2);
+  t.end();
+});
