@@ -7,6 +7,7 @@ const report = require('../lib/report');
 
 const defaults = {
   'exit-zero': false,
+  'prod-only': false,
 };
 
 const config = Object.assign({}, defaults, options);

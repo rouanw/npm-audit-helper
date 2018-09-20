@@ -209,3 +209,25 @@ test('should return a non-zero exit code if some non-review actions remain', (t)
   t.equal(exitCode, 1);
   t.end();
 });
+
+test('should ignore dev dependencies if requested', (t) => {
+  const helpWithProdOnly = Help({ 'prod-only': true });
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ dev: true })
+      }),
+      anAction({
+        action: 'install',
+        resolves: oneResolve({ dev: true })
+      }),
+    ],
+    advisories,
+  });
+  const { autoFixCount, auditResult, mostProblematicDependency } = helpWithProdOnly(input);
+  t.equal(autoFixCount, 0);
+  t.equal(auditResult.actions.length, 0);
+  t.equal(mostProblematicDependency, undefined);
+  t.end();
+});
