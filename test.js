@@ -15,7 +15,7 @@ const advisories = {
     severity: 'high',
   },
   456: {
-    id: 456,    
+    id: 456,
     overview: 'baddep3000 can DOS you',
     recommendation: 'upgrade baddep now please',
     severity: 'high',
@@ -40,12 +40,17 @@ function anAction(overrides = {}) {
   return Object.assign({}, defaults, overrides);
 }
 
-function oneResolve(overrides = {}) {
+function aResolve(overrides = {}) {
   const defaults = {
     id: 123,
     path: 'some-lib>another-lib>avedep',
+    dev: false,
   };
-  return [Object.assign({}, defaults, overrides)];
+  return Object.assign({}, defaults, overrides);
+}
+
+function oneResolve(overrides) {
+  return [aResolve(overrides)];
 }
 
 const help = Help();
@@ -216,11 +221,11 @@ test('should ignore dev dependencies if requested', (t) => {
     actions: [
       anAction({
         action: 'review',
-        resolves: oneResolve({ dev: true })
+        resolves: oneResolve({ dev: true }),
       }),
       anAction({
         action: 'install',
-        resolves: oneResolve({ dev: true })
+        resolves: oneResolve({ dev: true }),
       }),
     ],
     advisories,
@@ -229,5 +234,27 @@ test('should ignore dev dependencies if requested', (t) => {
   t.equal(autoFixCount, 0);
   t.equal(auditResult.actions.length, 0);
   t.equal(mostProblematicDependency, undefined);
+  t.end();
+});
+
+test('should only ignore dev dependencies', (t) => {
+  const helpWithProdOnly = Help({ 'prod-only': true });
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+        resolves: [aResolve({ dev: false }), aResolve({ dev: true })],
+      }),
+      anAction({
+        action: 'install',
+        resolves: [aResolve({ dev: false }), aResolve({ dev: true })],
+      }),
+    ],
+    advisories,
+  });
+  const { autoFixCount, auditResult, mostProblematicDependency } = helpWithProdOnly(input);
+  t.equal(autoFixCount, 1);
+  t.equal(auditResult.actions.length, 1);
+  t.notEqual(mostProblematicDependency, undefined);
   t.end();
 });
