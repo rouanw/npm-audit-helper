@@ -138,6 +138,26 @@ test('should return a count of auto fixes', (t) => {
   t.end();
 });
 
+test('should not include major bumps in the auto fix count', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'install',
+        isMajor: true,
+        resolves: oneResolve({ id: 577 }),
+      }),
+      anAction({
+        action: 'install',
+        resolves: oneResolve({ id: 123 }),
+      }),
+    ],
+    advisories,
+  });
+  const { autoFixCount } = help(input);
+  t.equal(autoFixCount, 1);
+  t.end();
+});
+
 test('should return the most problematic dependency', (t) => {
   const input = JSON.stringify({
     actions: [
