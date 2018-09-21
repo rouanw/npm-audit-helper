@@ -75,7 +75,7 @@ test('should filter output by severity', (t) => {
   t.end();
 });
 
-test('should only include actions for review', (t) => {
+test('should not include actions for update or install', (t) => {
   const input = JSON.stringify({
     actions: [
       anAction({
@@ -96,6 +96,34 @@ test('should only include actions for review', (t) => {
   const { auditResult } = help(input);
   t.equal(auditResult.actions.length, 1);
   t.equal(auditResult.actions[0].resolves[0].id, 456);
+  t.end();
+});
+
+test('should include actions for update or install when they include major semver bumps', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'update',
+        resolves: oneResolve({ id: 999 }),
+        isMajor: true,
+      }),
+      anAction({
+        action: 'install',
+        resolves: oneResolve({ id: 456 }),
+        isMajor: true,
+      }),
+      anAction({
+        action: 'update',
+        resolves: oneResolve({ id: 123 }),
+        isMajor: false,
+      }),
+    ],
+    advisories,
+  });
+  const { auditResult } = help(input);
+  t.equal(auditResult.actions.length, 2);
+  t.equal(auditResult.actions[0].resolves[0].id, 999);
+  t.equal(auditResult.actions[1].resolves[0].id, 456);
   t.end();
 });
 
@@ -164,6 +192,60 @@ test('should return the most problematic dependency', (t) => {
       anAction({
         action: 'review',
         resolves: oneResolve({ id: 577, path: 'thislib>alib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 456, path: 'thislib>blib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 999, path: 'clib>vulnlib' }),
+      }),
+    ],
+    advisories,
+  });
+  const { mostProblematicDependency } = help(input);
+  t.equal(mostProblematicDependency.name, 'thislib');
+  t.equal(mostProblematicDependency.count, 2);
+  t.end();
+});
+
+test('should not include actions for update or install when calculating the most problematic dependency', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'update',
+        resolves: oneResolve({ id: 577, path: 'thislib>alib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 456, path: 'thislib>blib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 999, path: 'clib>vulnlib' }),
+      }),
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 999, path: 'clib>vulnlib' }),
+      }),
+    ],
+    advisories,
+  });
+  const { mostProblematicDependency } = help(input);
+  t.equal(mostProblematicDependency.name, 'clib');
+  t.equal(mostProblematicDependency.count, 2);
+  t.end();
+});
+
+
+test('should include actions for major bumps when calculating the most problematic dependency', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'update',
+        resolves: oneResolve({ id: 577, path: 'thislib>alib>vulnlib' }),
+        isMajor: true,
       }),
       anAction({
         action: 'review',
