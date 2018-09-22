@@ -12,6 +12,7 @@ const defaults = {
 
 const config = Object.assign({}, defaults, options);
 
+/* eslint-disable no-console */
 getStdin()
   .then(help(config))
   .then((result) => report(result)
@@ -23,3 +24,4 @@ getStdin()
     console.error(error);
     process.exit(1);
   });
+/* eslint-enable no-console */
