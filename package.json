@@ -3,6 +3,7 @@
   "version": "2.3.4",
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
   "main": "index.js",
+  "keywords": ["npm", "audit", "security", "vulnerability", "pipe"],
   "bin": {
     "npm-audit-helper": "bin/cli.js"
   },
