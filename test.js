@@ -147,6 +147,71 @@ test('should move to the next severity if the highest severity has no actions fo
   t.end();
 });
 
+test('should not throw away advisories for lower priority resolves in actions that resolve other high priority advisories', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      {
+        action: 'install',
+        module: 'mocha',
+        target: '5.2.0',
+        isMajor: true,
+        resolves: [
+          {
+            id: 534,
+            path: 'mocha>debug',
+            dev: true,
+            optional: false,
+            bundled: false
+          },
+          {
+            id: 146,
+            path: 'mocha>growl',
+            dev: true,
+            optional: false,
+            bundled: false
+          }
+        ]
+      }
+    ],
+    advisories: {
+      146: {
+        findings: [
+          {
+            version: '1.9.2',
+            paths: [
+              'mocha>growl'
+            ],
+            dev: true,
+            optional: false,
+            bundled: false
+          }
+        ],
+        id: 146,
+        severity: 'critical'
+      },
+      534: {
+        findings: [
+          {
+            version: '2.6.8',
+            paths: [
+              'mocha>debug'
+            ],
+            dev: true,
+            optional: false,
+            bundled: false
+          }
+        ],
+        id: 534,
+        severity: 'low'
+      }
+    }
+  });
+  const { auditResult } = help(input);
+  t.equal(Object.keys(auditResult.advisories).length, 2);
+  t.ok(auditResult.advisories[534]);
+  t.end();
+});
+
 test('should return a count of auto fixes', (t) => {
   const input = JSON.stringify({
     actions: [
