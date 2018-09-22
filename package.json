@@ -2,8 +2,19 @@
   "name": "npm-audit-helper",
   "version": "2.3.4",
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
-  "main": "index.js",
+  "main": "lib/help.js",
   "keywords": ["npm", "audit", "security", "vulnerability", "pipe"],
+  "repository": {
+    "type" : "git",
+    "url" : "https://github.com/rouanw/npm-audit-helper.git"
+  },
+  "homepage": "https://github.com/rouanw/npm-audit-helper/blob/master/README.md",
+  "bugs": {
+    "url": "https://github.com/rouanw/npm-audit-helper/issues"
+  },
+  "engines": {
+    "npm": ">=6.1.0"
+  },
   "bin": {
     "npm-audit-helper": "bin/cli.js"
   },
@@ -11,7 +22,10 @@
     "test": "node test",
     "sample": "cat sample_input/example.json | node bin/cli"
   },
-  "author": "",
+  "author": {
+    "name": "Rouan Wilsenach",
+    "url": "https://rouanw.github.io/"
+  },
   "license": "MIT",
   "dependencies": {
     "chalk": "^2.4.1",
