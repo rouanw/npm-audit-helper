@@ -1,6 +1,6 @@
 # npm-audit-helper
 
-> Are your `npm audit` results overwhelming you? This library will helps you resolve them step by step.
+> Are your `npm audit` results overwhelming you? This library helps you resolve them step by step.
 
 [![npm version](https://badge.fury.io/js/npm-audit-helper.svg)](https://badge.fury.io/js/npm-audit-helper)
 [![Build Status](https://travis-ci.org/rouanw/npm-audit-helper.svg?branch=master)](https://travis-ci.org/rouanw/npm-audit-helper)
