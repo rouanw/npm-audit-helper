@@ -3,10 +3,16 @@
   "version": "2.3.5",
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
   "main": "lib/help.js",
-  "keywords": ["npm", "audit", "security", "vulnerability", "pipe"],
+  "keywords": [
+    "npm",
+    "audit",
+    "security",
+    "vulnerability",
+    "pipe"
+  ],
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/rouanw/npm-audit-helper.git"
+    "type": "git",
+    "url": "https://github.com/rouanw/npm-audit-helper.git"
   },
   "homepage": "https://github.com/rouanw/npm-audit-helper/blob/master/README.md",
   "bugs": {
@@ -19,6 +25,7 @@
     "npm-audit-helper": "bin/cli.js"
   },
   "scripts": {
+    "lint": "eslint .",
     "test": "node test",
     "sample": "cat sample_input/example.json | node bin/cli"
   },
@@ -35,6 +42,9 @@
     "npm-audit-report": "^1.3.1"
   },
   "devDependencies": {
+    "eslint": "^5.6.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
     "tape": "^4.9.1"
   }
 }

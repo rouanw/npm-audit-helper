@@ -14,13 +14,11 @@ const config = Object.assign({}, defaults, options);
 
 getStdin()
   .then(help(config))
-  .then((result) => {
-    return report(result)
-      .then((theReport) => {
-        console.log(theReport);
-        process.exit(result.exitCode);
-      });
-  })
+  .then((result) => report(result)
+    .then((theReport) => {
+      console.log(theReport);
+      process.exit(result.exitCode);
+    }))
   .catch((error) => {
     console.error(error);
     process.exit(1);

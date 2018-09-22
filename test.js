@@ -161,17 +161,17 @@ test('should not throw away advisories for lower priority resolves in actions th
             path: 'mocha>debug',
             dev: true,
             optional: false,
-            bundled: false
+            bundled: false,
           },
           {
             id: 146,
             path: 'mocha>growl',
             dev: true,
             optional: false,
-            bundled: false
-          }
-        ]
-      }
+            bundled: false,
+          },
+        ],
+      },
     ],
     advisories: {
       146: {
@@ -179,32 +179,32 @@ test('should not throw away advisories for lower priority resolves in actions th
           {
             version: '1.9.2',
             paths: [
-              'mocha>growl'
+              'mocha>growl',
             ],
             dev: true,
             optional: false,
-            bundled: false
-          }
+            bundled: false,
+          },
         ],
         id: 146,
-        severity: 'critical'
+        severity: 'critical',
       },
       534: {
         findings: [
           {
             version: '2.6.8',
             paths: [
-              'mocha>debug'
+              'mocha>debug',
             ],
             dev: true,
             optional: false,
-            bundled: false
-          }
+            bundled: false,
+          },
         ],
         id: 534,
-        severity: 'low'
-      }
-    }
+        severity: 'low',
+      },
+    },
   });
   const { auditResult } = help(input);
   t.equal(Object.keys(auditResult.advisories).length, 2);

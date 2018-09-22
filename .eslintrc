@@ -1,0 +1,23 @@
+{
+  "extends": ["airbnb-base"],
+  "env": {
+    "node": true
+  },
+  "rules": {
+    "id-length": 0,
+    "max-len": 0,
+    "consistent-return": 0,
+    "arrow-parens": 0,
+    "no-underscore-dangle": 0,
+    "object-curly-newline": 0,
+    "comma-dangle": ["error", {
+      "arrays": "always-multiline",
+      "objects": "always-multiline",
+      "imports": "always-multiline",
+      "exports": "always-multiline",
+      "functions": "ignore"
+    }],
+    "prefer-destructuring": 0,
+    "no-restricted-syntax": 0
+  }
+}
