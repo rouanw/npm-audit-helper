@@ -78,6 +78,10 @@ Flag|Description|Default
 - `npm-audit-helper` won't work if it's piped invalid JSON, so you should check the output of `npm audit --json` if you have any trouble. A likely cause of invalid JSON is additional `npm` logging, so check the `loglevel` option in your `.npmrc` or `~/.npmrc` file.
 - This has been tested on *nix, not Windows. Let me know if you use Windows and you'd like to use this library by opening an issue.
 
+## Note on NSP
+
+I wrote this library while helping my company migrate from using the [Node Security Project](https://nodesecurity.io/), which will be decommissioned soon. I found that `npm audit` found many more vulnerabilities than our `nsp` output used to, which meant that I needed a little help to see which issues to focus on first.
+
 ## License
 
 MIT

@@ -8,7 +8,8 @@
     "audit",
     "security",
     "vulnerability",
-    "pipe"
+    "pipe",
+    "nsp"
   ],
   "repository": {
     "type": "git",
