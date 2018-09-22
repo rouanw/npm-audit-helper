@@ -1,6 +1,6 @@
 {
   "name": "npm-audit-helper",
-  "version": "2.3.8",
+  "version": "2.3.9",
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
   "main": "lib/help.js",
   "keywords": [
@@ -15,7 +15,7 @@
     "type": "git",
     "url": "https://github.com/rouanw/npm-audit-helper.git"
   },
-  "homepage": "https://github.com/rouanw/npm-audit-helper/blob/master/README.md",
+  "homepage": "https://rouanw.github.io/npm-audit-helper/",
   "bugs": {
     "url": "https://github.com/rouanw/npm-audit-helper/issues"
   },
