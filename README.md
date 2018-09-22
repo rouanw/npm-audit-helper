@@ -9,7 +9,7 @@
 
 ## Overview
 
-It can be really overwhelming to stare at npm audit report with 50+ vulnerabilities. Where do you start? `npm-audit-helper` helps answer that question, by providing smaller sets of output and a few hints below. Example output:
+It can be really overwhelming to stare at an npm audit report with 50+ vulnerabilities. Where do you start? `npm-audit-helper` helps answer that question, by providing smaller sets of output and a few hints. Example output:
 
 ```sh
 found 155 vulnerabilities (60 low, 76 moderate, 18 high, 1 critical) in 22715 scanned packages
@@ -39,7 +39,7 @@ npm audit --json | npx npm-audit-helper
 ### Global installation
 
 ```sh
-npm instal -g npm-audit-helper
+npm install -g npm-audit-helper
 npm audit --json | npm-audit-helper
 ```
 
@@ -68,7 +68,7 @@ npm install --save-dev npm-audit-helper
 npm run vuln
 ```
 
-This last approach is great for setting up `prepush` hooks with a tool like [`husky`](https://github.com/typicode/husky). `npm-audit-helper` will return a non-zero exit code if vulnerabilities are found.
+This last approach is great for setting up a `prepush` hook with a tool like [`husky`](https://github.com/typicode/husky). `npm-audit-helper` will return a non-zero exit code if vulnerabilities are found.
 
 ## Options
 
