@@ -83,6 +83,12 @@ Flag|Description|Default
 - `npm-audit-helper` won't work if it's piped invalid JSON, so you should check the output of `npm audit --json` if you have any trouble. A likely cause of invalid JSON is additional `npm` logging, so check the `loglevel` option in your `.npmrc` or `~/.npmrc` file.
 - This has been tested on *nix, not Windows. Let me know if you use Windows and you'd like to use this library by opening an issue.
 
+## `npm audit` hints
+
+- You can get `npm audit` to ignore issues of a certain severity (but only for its exit code) by setting the [`audit-level` option](https://docs.npmjs.com/misc/config#audit-level).
+- You can tell `npm audit fix` to only fix production dependencies with `npm audit fix --only=prod`.
+- If you want to add exclusions to your project (i.e. these are vulnerabilities I've reviewed and want to ignore), take a look at [npm-audit-resolver](https://www.npmjs.com/package/npm-audit-resolver). There is [an RFC open](https://github.com/npm/rfcs/pull/18 to get `npm audit resolve` built into `npm`.
+
 ## Note on NSP
 
 I wrote this library while helping my company migrate from using the [Node Security Project](https://nodesecurity.io/), which will be decommissioned soon. I found that `npm audit` found many more vulnerabilities than our `nsp` output used to, which meant that I needed a little help to see which issues to focus on first.
