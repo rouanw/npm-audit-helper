@@ -425,3 +425,23 @@ test('should only ignore dev dependencies', (t) => {
   t.notEqual(mostProblematicDependency, undefined);
   t.end();
 });
+
+test('should return the highest severity', (t) => {
+  const input = JSON.stringify({
+    actions: [
+      anAction({
+        action: 'review',
+        resolves: oneResolve({ id: 577 }),
+      }),
+      anAction({
+        action: 'install',
+        resolves: oneResolve({ id: 123 }),
+        isMajor: true,
+      }),
+    ],
+    advisories,
+  });
+  const { highestSeverity } = help(input);
+  t.equal(highestSeverity, 'high');
+  t.end();
+});
