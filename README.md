@@ -87,7 +87,7 @@ Flag|Description|Default
 
 - You can get `npm audit` to ignore issues of a certain severity (but only for its exit code) by setting the [`audit-level` option](https://docs.npmjs.com/misc/config#audit-level).
 - You can tell `npm audit fix` to only fix production dependencies with `npm audit fix --only=prod`.
-- If you want to add exclusions to your project (i.e. these are vulnerabilities I've reviewed and want to ignore), take a look at [npm-audit-resolver](https://www.npmjs.com/package/npm-audit-resolver). There is [an RFC open](https://github.com/npm/rfcs/pull/18 to get `npm audit resolve` built into `npm`.
+- If you want to add exclusions to your project (i.e. these are vulnerabilities I've reviewed and want to ignore), take a look at [npm-audit-resolver](https://www.npmjs.com/package/npm-audit-resolver). There is [an RFC open](https://github.com/npm/rfcs/pull/18) to get `npm audit resolve` built into `npm`.
 
 ## Note on NSP
 
