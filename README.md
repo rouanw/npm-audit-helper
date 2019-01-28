@@ -45,13 +45,13 @@ npm audit --json | npm-audit-helper
 
 ### Per-project installation
 
-1. __Install:__
+(1) __Install:__
 
 ```sh
 npm install --save-dev npm-audit-helper
 ```
 
-2. __Create task in `package.json`:__
+(2) __Create task in `package.json`:__
 
 ```js
 {
@@ -62,7 +62,7 @@ npm install --save-dev npm-audit-helper
 }
 ```
 
-3. __Run:__
+(3) __Run:__
 
 ```sh
 npm run vuln
