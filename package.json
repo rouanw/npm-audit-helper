@@ -1,6 +1,6 @@
 {
   "name": "npm-audit-helper",
-  "version": "2.3.17",
+  "version": "2.3.18",
   "description": "Helps you understand your npm audit findings so they're not too overwhelming",
   "main": "lib/help.js",
   "keywords": [
