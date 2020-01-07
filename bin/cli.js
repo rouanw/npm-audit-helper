@@ -10,7 +10,7 @@ const defaults = {
   'prod-only': false,
 };
 
-const config = Object.assign({}, defaults, options);
+const config = { ...defaults, ...options };
 
 /* eslint-disable no-console */
 getStdin()

@@ -37,7 +37,7 @@ function anAction(overrides = {}) {
       path: 'some-lib>another-lib>somedep',
     }],
   };
-  return Object.assign({}, defaults, overrides);
+  return { ...defaults, ...overrides };
 }
 
 function aResolve(overrides = {}) {
@@ -46,7 +46,7 @@ function aResolve(overrides = {}) {
     path: 'some-lib>another-lib>avedep',
     dev: false,
   };
-  return Object.assign({}, defaults, overrides);
+  return { ...defaults, ...overrides };
 }
 
 function oneResolve(overrides) {
