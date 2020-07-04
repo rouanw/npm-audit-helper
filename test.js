@@ -303,7 +303,6 @@ test('should not include actions for update or install when calculating the most
   t.end();
 });
 
-
 test('should include actions for major bumps when calculating the most problematic dependency', (t) => {
   const input = JSON.stringify({
     actions: [
