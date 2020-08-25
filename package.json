@@ -53,6 +53,6 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5",
-    "tape": "^4.13.3"
+    "tape": "^5.0.1"
   }
 }
