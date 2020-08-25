@@ -5,7 +5,6 @@
 [![npm version](https://badge.fury.io/js/npm-audit-helper.svg)](https://badge.fury.io/js/npm-audit-helper)
 [![Build Status](https://travis-ci.org/rouanw/npm-audit-helper.svg?branch=master)](https://travis-ci.org/rouanw/npm-audit-helper)
 ![Dependency Status](https://david-dm.org/rouanw/npm-audit-helper.svg)
-![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)
 
 ## Overview
 
