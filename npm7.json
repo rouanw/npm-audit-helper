@@ -1,0 +1,57 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "moment": {
+      "name": "moment",
+      "severity": "moderate",
+      "via": [
+        {
+          "source": 532,
+          "name": "moment",
+          "dependency": "moment",
+          "title": "Regular Expression Denial of Service",
+          "url": "https://npmjs.com/advisories/532",
+          "severity": "low",
+          "range": "<2.19.3"
+        },
+        {
+          "source": 55,
+          "name": "moment",
+          "dependency": "moment",
+          "title": "Regular Expression Denial of Service",
+          "url": "https://npmjs.com/advisories/55",
+          "severity": "moderate",
+          "range": "<2.11.2"
+        }
+      ],
+      "effects": [],
+      "range": "<=2.19.2",
+      "nodes": [
+        "node_modules/moment"
+      ],
+      "fixAvailable": {
+        "name": "moment",
+        "version": "2.29.1",
+        "isSemVerMajor": true
+      }
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 1,
+      "high": 0,
+      "critical": 0,
+      "total": 1
+    },
+    "dependencies": {
+      "prod": 19,
+      "dev": 220,
+      "optional": 1,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 240
+    }
+  }
+}

