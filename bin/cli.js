@@ -16,7 +16,8 @@ const config = { ...defaults, ...options };
 (async function cli() {
   try {
     const stdin = await getStdin();
-    const result = help(config)(stdin);
+    const auditResult = JSON.parse(stdin);
+    const result = help(config)(auditResult);
     const theReport = await report(result);
     console.log(theReport);
     process.exit(result.exitCode);

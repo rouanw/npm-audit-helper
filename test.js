@@ -56,7 +56,7 @@ function oneResolve(overrides) {
 const help = Help();
 
 test('should filter output by severity', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -68,7 +68,7 @@ test('should filter output by severity', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { auditResult } = help(input);
   t.equal(auditResult.actions.length, 1);
   t.equal(auditResult.actions[0].resolves[0].id, 123);
@@ -76,7 +76,7 @@ test('should filter output by severity', (t) => {
 });
 
 test('should not include actions for update or install', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'update',
@@ -92,7 +92,7 @@ test('should not include actions for update or install', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { auditResult } = help(input);
   t.equal(auditResult.actions.length, 1);
   t.equal(auditResult.actions[0].resolves[0].id, 456);
@@ -100,7 +100,7 @@ test('should not include actions for update or install', (t) => {
 });
 
 test('should include actions for update or install when they include major semver bumps', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'update',
@@ -119,7 +119,7 @@ test('should include actions for update or install when they include major semve
       }),
     ],
     advisories,
-  });
+  };
   const { auditResult } = help(input);
   t.equal(auditResult.actions.length, 2);
   t.equal(auditResult.actions[0].resolves[0].id, 999);
@@ -128,7 +128,7 @@ test('should include actions for update or install when they include major semve
 });
 
 test('should move to the next severity if the highest severity has no actions for review', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -140,7 +140,7 @@ test('should move to the next severity if the highest severity has no actions fo
       }),
     ],
     advisories,
-  });
+  };
   const { auditResult } = help(input);
   t.equal(auditResult.actions.length, 1);
   t.equal(auditResult.actions[0].resolves[0].id, 577);
@@ -148,7 +148,7 @@ test('should move to the next severity if the highest severity has no actions fo
 });
 
 test('should not throw away advisories for lower priority resolves in actions that resolve other high priority advisories', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       {
         action: 'install',
@@ -205,7 +205,7 @@ test('should not throw away advisories for lower priority resolves in actions th
         severity: 'low',
       },
     },
-  });
+  };
   const { auditResult } = help(input);
   t.equal(Object.keys(auditResult.advisories).length, 2);
   t.ok(auditResult.advisories[534]);
@@ -213,7 +213,7 @@ test('should not throw away advisories for lower priority resolves in actions th
 });
 
 test('should return a count of auto fixes', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -225,14 +225,14 @@ test('should return a count of auto fixes', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { autoFixCount } = help(input);
   t.equal(autoFixCount, 1);
   t.end();
 });
 
 test('should not include major bumps in the auto fix count', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'install',
@@ -245,14 +245,14 @@ test('should not include major bumps in the auto fix count', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { autoFixCount } = help(input);
   t.equal(autoFixCount, 1);
   t.end();
 });
 
 test('should return the most problematic dependency', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -268,7 +268,7 @@ test('should return the most problematic dependency', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { mostProblematicDependency } = help(input);
   t.equal(mostProblematicDependency.name, 'thislib');
   t.equal(mostProblematicDependency.count, 2);
@@ -276,7 +276,7 @@ test('should return the most problematic dependency', (t) => {
 });
 
 test('should not include actions for update or install when calculating the most problematic dependency', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'update',
@@ -296,7 +296,7 @@ test('should not include actions for update or install when calculating the most
       }),
     ],
     advisories,
-  });
+  };
   const { mostProblematicDependency } = help(input);
   t.equal(mostProblematicDependency.name, 'clib');
   t.equal(mostProblematicDependency.count, 2);
@@ -304,7 +304,7 @@ test('should not include actions for update or install when calculating the most
 });
 
 test('should include actions for major bumps when calculating the most problematic dependency', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'update',
@@ -321,7 +321,7 @@ test('should include actions for major bumps when calculating the most problemat
       }),
     ],
     advisories,
-  });
+  };
   const { mostProblematicDependency } = help(input);
   t.equal(mostProblematicDependency.name, 'thislib');
   t.equal(mostProblematicDependency.count, 2);
@@ -329,24 +329,24 @@ test('should include actions for major bumps when calculating the most problemat
 });
 
 test('should return a zero exit code if no actions remain', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [],
     advisories,
-  });
+  };
   const { exitCode } = help(input);
   t.equal(exitCode, 0);
   t.end();
 });
 
 test('should return a non-zero exit code if some actions for review remain', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
       }),
     ],
     advisories,
-  });
+  };
   const { exitCode } = help(input);
   t.equal(exitCode, 1);
   t.end();
@@ -354,28 +354,28 @@ test('should return a non-zero exit code if some actions for review remain', (t)
 
 test('should return a zero exit code if requested', (t) => {
   const helpWithZeroExit = Help({ 'exit-zero': true });
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'install',
       }),
     ],
     advisories,
-  });
+  };
   const { exitCode } = helpWithZeroExit(input);
   t.equal(exitCode, 0);
   t.end();
 });
 
 test('should return a non-zero exit code if some non-review actions remain', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'install',
       }),
     ],
     advisories,
-  });
+  };
   const { exitCode } = help(input);
   t.equal(exitCode, 1);
   t.end();
@@ -383,7 +383,7 @@ test('should return a non-zero exit code if some non-review actions remain', (t)
 
 test('should ignore dev dependencies if requested', (t) => {
   const helpWithProdOnly = Help({ 'prod-only': true });
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -395,7 +395,7 @@ test('should ignore dev dependencies if requested', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { autoFixCount, auditResult, mostProblematicDependency } = helpWithProdOnly(input);
   t.equal(autoFixCount, 0);
   t.equal(auditResult.actions.length, 0);
@@ -405,7 +405,7 @@ test('should ignore dev dependencies if requested', (t) => {
 
 test('should only ignore dev dependencies', (t) => {
   const helpWithProdOnly = Help({ 'prod-only': true });
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -417,7 +417,7 @@ test('should only ignore dev dependencies', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { autoFixCount, auditResult, mostProblematicDependency } = helpWithProdOnly(input);
   t.equal(autoFixCount, 1);
   t.equal(auditResult.actions.length, 1);
@@ -426,7 +426,7 @@ test('should only ignore dev dependencies', (t) => {
 });
 
 test('should return the highest severity', (t) => {
-  const input = JSON.stringify({
+  const input = {
     actions: [
       anAction({
         action: 'review',
@@ -439,7 +439,7 @@ test('should return the highest severity', (t) => {
       }),
     ],
     advisories,
-  });
+  };
   const { highestSeverity } = help(input);
   t.equal(highestSeverity, 'high');
   t.end();
