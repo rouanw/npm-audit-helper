@@ -13,15 +13,16 @@ const defaults = {
 const config = { ...defaults, ...options };
 
 /* eslint-disable no-console */
-getStdin()
-  .then(help(config))
-  .then((result) => report(result)
-    .then((theReport) => {
-      console.log(theReport);
-      process.exit(result.exitCode);
-    }))
-  .catch((error) => {
+(async function cli() {
+  try {
+    const stdin = await getStdin();
+    const result = help(config)(stdin);
+    const theReport = await report(result);
+    console.log(theReport);
+    process.exit(result.exitCode);
+  } catch (error) {
     console.error(error);
     process.exit(1);
-  });
+  }
+}());
 /* eslint-enable no-console */
