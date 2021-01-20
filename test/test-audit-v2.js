@@ -3,7 +3,7 @@ const Help = require('../lib/help-audit-v2');
 
 const help = Help();
 
-const auditJson = {
+const exampleAuditJson = {
   vulnerabilities: {
     joi: {
       name: 'joi',
@@ -77,18 +77,83 @@ const auditJson = {
   },
 };
 
+const buildAuditResultFixture = (vulnerabilities) => ({ vulnerabilities });
+
 test('should filter output by severity', (t) => {
-  const input = { ...auditJson };
+  const input = { ...exampleAuditJson };
   const { auditResult } = help(input);
   t.equal(Object.keys(auditResult.vulnerabilities).length, 1);
   t.ok(auditResult.vulnerabilities.lodash);
   t.end();
 });
 
-/* eslint-disable no-unused-vars */
-test.skip('should not include actions for update or install', (t) => {
+test('should not include vulnerabilities that can be fixed with npm audit fix', (t) => {
+  const input = buildAuditResultFixture({
+    minimist: {
+      name: 'minimist',
+      severity: 'low',
+      via: [
+        {
+          source: 1179,
+          name: 'minimist',
+          dependency: 'minimist',
+          title: 'Prototype Pollution',
+          url: 'https://npmjs.com/advisories/1179',
+          severity: 'low',
+          range: '<0.2.1 || >=1.0.0 <1.2.3',
+        },
+      ],
+      effects: [
+        'optimist',
+      ],
+      range: '<0.2.1 || >=1.0.0 <1.2.3',
+      nodes: [
+        'node_modules/minimist',
+      ],
+      fixAvailable: true,
+    },
+    optimist: {
+      name: 'optimist',
+      severity: 'low',
+      via: [
+        'minimist',
+      ],
+      effects: [
+        'handlebars',
+      ],
+      range: '>=0.6.0',
+      nodes: [
+        'node_modules/optimist',
+      ],
+      fixAvailable: true,
+    },
+    joi: {
+      name: 'joi',
+      severity: 'low',
+      via: [
+        'hoek',
+      ],
+      effects: [],
+      range: '0.0.2 - 8.0.5',
+      nodes: [
+        'node_modules/joi',
+      ],
+      fixAvailable: {
+        name: 'joi',
+        version: '17.3.0',
+        isSemVerMajor: true,
+      },
+    },
+  });
+  const { auditResult } = help(input);
+  t.equal(Object.keys(auditResult.vulnerabilities).length, 1);
+  t.notOk(auditResult.vulnerabilities.optimist);
+  t.notOk(auditResult.vulnerabilities.minimist);
+  t.ok(auditResult.vulnerabilities.joi);
+  t.end();
 });
 
+/* eslint-disable no-unused-vars */
 test.skip('should include actions for update or install when they include major semver bumps', (t) => {
 });
 
