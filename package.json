@@ -27,7 +27,7 @@
   },
   "scripts": {
     "lint": "eslint .",
-    "test": "node test",
+    "test": "tape test/*.js",
     "sample": "cat sample_input/example.json | node bin/cli"
   },
   "husky": {

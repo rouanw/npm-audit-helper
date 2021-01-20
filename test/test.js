@@ -1,5 +1,5 @@
 const test = require('tape');
-const Help = require('./lib/help');
+const Help = require('../lib/help');
 
 const advisories = {
   577: {
