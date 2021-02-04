@@ -77,7 +77,7 @@ const exampleAuditJson = {
   },
 };
 
-const buildAuditResultFixture = (vulnerabilities) => ({ vulnerabilities });
+const buildAuditResultFixture = (vulnerabilities, metadata = {}) => ({ vulnerabilities, metadata });
 
 test('should filter output by severity', (t) => {
   const input = { ...exampleAuditJson };
@@ -650,5 +650,21 @@ test('should return the highest severity', (t) => {
   });
   const { highestSeverity } = help(input);
   t.equal(highestSeverity, 'low');
+  t.end();
+});
+
+test('should include the metadata', (t) => {
+  const input = buildAuditResultFixture(exampleAuditJson, {
+    vulnerabilities: {
+      info: 0,
+      low: 7,
+      moderate: 3,
+      high: 2,
+      critical: 0,
+      total: 12,
+    },
+  });
+  const { auditResult: { metadata } } = help(input);
+  t.equal(metadata.vulnerabilities.total, 12);
   t.end();
 });
