@@ -223,9 +223,6 @@ test('should move to the next severity if the highest severity has no actions fo
   t.end();
 });
 
-test.skip('should not throw away advisories for lower priority resolves in actions that resolve other high priority advisories', (t) => {
-});
-
 test.skip('should return a count of auto fixes', (t) => {
 });
 
