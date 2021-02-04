@@ -590,9 +590,6 @@ test('should return a zero exit code if requested', (t) => {
   t.end();
 });
 
-test.skip('should return a non-zero exit code if some non-review actions remain', (t) => {
-});
-
 test.skip('should ignore dev dependencies if requested', (t) => {
 });
 
