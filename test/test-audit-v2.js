@@ -153,10 +153,6 @@ test('should not include vulnerabilities that can be fixed with npm audit fix', 
   t.end();
 });
 
-/* eslint-disable no-unused-vars */
-test.skip('should include actions for update or install when they include major semver bumps', (t) => {
-});
-
 test('should move to the next severity if the highest severity has no actions for review', (t) => {
   const input = buildAuditResultFixture({
     minimist: {
