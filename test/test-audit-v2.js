@@ -570,10 +570,17 @@ test('should return the most problematic dependency as the one with the most vul
   t.end();
 });
 
-test.skip('should return a zero exit code if no actions remain', (t) => {
+test('should return a zero exit code if no actions remain', (t) => {
+  const input = buildAuditResultFixture({});
+  const { exitCode } = help(input);
+  t.equal(exitCode, 0);
+  t.end();
 });
 
-test.skip('should return a non-zero exit code if some actions for review remain', (t) => {
+test('should return a non-zero exit code if some vulnerabilities remain', (t) => {
+  const { exitCode } = help(exampleAuditJson);
+  t.equal(exitCode, 1);
+  t.end();
 });
 
 test.skip('should return a zero exit code if requested', (t) => {
