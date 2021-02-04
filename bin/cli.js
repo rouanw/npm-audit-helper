@@ -2,7 +2,7 @@
 
 const getStdin = require('get-stdin');
 const options = require('minimist')(process.argv.slice(2));
-const npmAuditReportV2 = require('npm-audit-report-v2');
+const reportAuditV2 = require('../lib/report-audit-v2');
 const helpAuditV1 = require('../lib/help');
 const helpAuditV2 = require('../lib/help-audit-v2');
 const report = require('../lib/report');
@@ -24,7 +24,7 @@ const config = { ...defaults, ...options };
     let helper;
 
     if (newTreeFormat) {
-      reporter = (({ auditResult }) => console.log('\n*** NPM v7 is not supported yet, below is the raw output from `npm audit` ***\n') || npmAuditReportV2(auditResult).report);
+      reporter = reportAuditV2;
       helper = helpAuditV2;
     } else {
       reporter = report;
