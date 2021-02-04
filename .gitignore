@@ -1,3 +1,4 @@
 node_modules/
 sample_input/
 package-lock.json
+.vscode/
