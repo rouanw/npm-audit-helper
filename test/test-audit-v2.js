@@ -157,7 +157,70 @@ test('should not include vulnerabilities that can be fixed with npm audit fix', 
 test.skip('should include actions for update or install when they include major semver bumps', (t) => {
 });
 
-test.skip('should move to the next severity if the highest severity has no actions for review', (t) => {
+test('should move to the next severity if the highest severity has no actions for review', (t) => {
+  const input = buildAuditResultFixture({
+    minimist: {
+      name: 'minimist',
+      severity: 'high',
+      via: [
+        {
+          source: 1179,
+          name: 'minimist',
+          dependency: 'minimist',
+          title: 'Prototype Pollution',
+          url: 'https://npmjs.com/advisories/1179',
+          severity: 'high',
+          range: '<0.2.1 || >=1.0.0 <1.2.3',
+        },
+      ],
+      effects: [
+        'optimist',
+      ],
+      range: '<0.2.1 || >=1.0.0 <1.2.3',
+      nodes: [
+        'node_modules/minimist',
+      ],
+      fixAvailable: true,
+    },
+    optimist: {
+      name: 'optimist',
+      severity: 'high',
+      via: [
+        'minimist',
+      ],
+      effects: [
+        'handlebars',
+      ],
+      range: '>=0.6.0',
+      nodes: [
+        'node_modules/optimist',
+      ],
+      fixAvailable: true,
+    },
+    joi: {
+      name: 'joi',
+      severity: 'low',
+      via: [
+        'hoek',
+      ],
+      effects: [],
+      range: '0.0.2 - 8.0.5',
+      nodes: [
+        'node_modules/joi',
+      ],
+      fixAvailable: {
+        name: 'joi',
+        version: '17.3.0',
+        isSemVerMajor: true,
+      },
+    },
+  });
+  const { auditResult } = help(input);
+  t.equal(Object.keys(auditResult.vulnerabilities).length, 1);
+  t.notOk(auditResult.vulnerabilities.optimist);
+  t.notOk(auditResult.vulnerabilities.minimist);
+  t.ok(auditResult.vulnerabilities.joi);
+  t.end();
 });
 
 test.skip('should not throw away advisories for lower priority resolves in actions that resolve other high priority advisories', (t) => {
