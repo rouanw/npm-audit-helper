@@ -583,7 +583,11 @@ test('should return a non-zero exit code if some vulnerabilities remain', (t) =>
   t.end();
 });
 
-test.skip('should return a zero exit code if requested', (t) => {
+test('should return a zero exit code if requested', (t) => {
+  const helpWithZeroExit = Help({ 'exit-zero': true });
+  const { exitCode } = helpWithZeroExit(exampleAuditJson);
+  t.equal(exitCode, 0);
+  t.end();
 });
 
 test.skip('should return a non-zero exit code if some non-review actions remain', (t) => {
