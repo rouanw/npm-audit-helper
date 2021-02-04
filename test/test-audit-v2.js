@@ -286,9 +286,6 @@ test('should return a count of auto fixes', (t) => {
   t.end();
 });
 
-test.skip('should not include major bumps in the auto fix count', (t) => {
-});
-
 test.skip('should return the most problematic dependency', (t) => {
 });
 
