@@ -570,12 +570,6 @@ test('should return the most problematic dependency as the one with the most vul
   t.end();
 });
 
-test.skip('should not include actions for update or install when calculating the most problematic dependency', (t) => {
-});
-
-test.skip('should include actions for major bumps when calculating the most problematic dependency', (t) => {
-});
-
 test.skip('should return a zero exit code if no actions remain', (t) => {
 });
 
