@@ -590,12 +590,6 @@ test('should return a zero exit code if requested', (t) => {
   t.end();
 });
 
-test.skip('should ignore dev dependencies if requested', (t) => {
-});
-
-test.skip('should only ignore dev dependencies', (t) => {
-});
-
 test('should return the highest severity', (t) => {
   const input = buildAuditResultFixture({
     minimist: {
