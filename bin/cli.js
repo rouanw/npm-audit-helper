@@ -2,10 +2,8 @@
 
 const getStdin = require('get-stdin');
 const options = require('minimist')(process.argv.slice(2));
-const reportAuditV2 = require('../lib/report-audit-v2');
-const helpAuditV1 = require('../lib/help');
-const helpAuditV2 = require('../lib/help-audit-v2');
-const report = require('../lib/report');
+const reportAuditV2 = require('../lib/report-audit');
+const helpAuditV2 = require('../lib/help-audit');
 
 const defaults = {
   'exit-zero': false,
@@ -27,8 +25,8 @@ const config = { ...defaults, ...options };
       reporter = reportAuditV2;
       helper = helpAuditV2;
     } else {
-      reporter = report;
-      helper = helpAuditV1;
+      console.error('Versions <7 of npm are no longer supported. For npm 6 support, please use npm-audit-helper@3.1.1.');
+      process.exit(1);
     }
 
     const result = helper(config)(auditOutput);

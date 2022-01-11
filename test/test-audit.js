@@ -1,5 +1,5 @@
 const test = require('tape');
-const Help = require('../lib/help-audit-v2');
+const Help = require('../lib/help-audit');
 
 const help = Help();
 
