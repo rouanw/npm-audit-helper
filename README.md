@@ -53,7 +53,7 @@ npm install --save-dev npm-audit-helper
 
 (2) __Create task in `package.json`:__
 
-```js
+```jsonc
 {
   "scripts": {
     // ...
@@ -72,10 +72,10 @@ This last approach is great for setting up a `prepush` hook with a tool like [`h
 
 ## Options
 
-Flag|Description|Default
----|---|---
-`--exit-zero`|Return a zero exit code even when there are vulnerabilities. Useful while you're working your way down to 0 vulnerabilities|`false`
-`--prod-only`|Only available for npm < 7. Filter out vulnerability information for `devDependencies`|`false`
+| Flag          | Description                                                                                                                 | Default |
+|---------------|-----------------------------------------------------------------------------------------------------------------------------|---------|
+| `--exit-zero` | Return a zero exit code even when there are vulnerabilities. Useful while you're working your way down to 0 vulnerabilities | `false` |
+| `--prod-only` | Only available for npm < 7. Filter out vulnerability information for `devDependencies`                                      | `false` |
 
 To filter our dev dependencies on npm 7+, pass the `--only=prod` option directly to npm:
 
