@@ -5,7 +5,6 @@
 [![npm version](https://badge.fury.io/js/npm-audit-helper.svg)](https://badge.fury.io/js/npm-audit-helper)
 [![npm](https://img.shields.io/npm/dt/npm-audit-helper)](https://www.npmjs.com/package/npm-audit-helper)
 [![Build Status](https://travis-ci.org/rouanw/npm-audit-helper.svg?branch=master)](https://travis-ci.org/rouanw/npm-audit-helper)
-![Dependency Status](https://david-dm.org/rouanw/npm-audit-helper.svg)
 
 ## Overview
 
@@ -94,10 +93,6 @@ npm audit --json --only=prod | npx npm-audit-helper
 - You can get `npm audit` to ignore issues of a certain severity (but only for its exit code) by setting the [`audit-level` option](https://docs.npmjs.com/misc/config#audit-level).
 - You can tell `npm audit fix` to only fix production dependencies with `npm audit fix --only=prod`.
 - If you want to add exclusions to your project (i.e. these are vulnerabilities I've reviewed and want to ignore), take a look at [npm-audit-resolver](https://www.npmjs.com/package/npm-audit-resolver). There is [an RFC open](https://github.com/npm/rfcs/pull/18) to get `npm audit resolve` built into `npm`.
-
-## Note on NSP
-
-I wrote this library while helping my company migrate from using the [Node Security Project](https://nodesecurity.io/), which will be decommissioned soon. I found that `npm audit` found many more vulnerabilities than our `nsp` output used to, which meant that I needed a little help to see which issues to focus on first.
 
 ## License
 
